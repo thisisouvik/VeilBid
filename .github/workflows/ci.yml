@@ -95,24 +95,3 @@ jobs:
           name: nextjs-build
           path: .next/
           retention-days: 3
-
-  # ── Summary badge job (all must pass) ─────────────────────────────────────
-  ci-success:
-    name: "✅ CI Passed"
-    runs-on: ubuntu-latest
-    needs: [contract-tests, typecheck, build]
-    if: always()
-
-    steps:
-      - name: Check all jobs passed
-        run: |
-          if [[ "${{ needs.contract-tests.result }}" != "success" || \
-                "${{ needs.typecheck.result }}"    != "success" || \
-                "${{ needs.build.result }}"        != "success" ]]; then
-            echo "❌ One or more CI jobs failed"
-            exit 1
-          fi
-          echo "✅ All CI jobs passed!"
-          echo "  contract-tests: ${{ needs.contract-tests.result }}"
-          echo "  typecheck:      ${{ needs.typecheck.result }}"
-          echo "  build:          ${{ needs.build.result }}"
