@@ -1,9 +1,11 @@
 <div align="center">
-  <img src="app/icon.png" alt="VeilBid Logo" width="120" />
+  <img src="app/icon.png" alt="VeilBid Logo" width="140" style="border-radius: 20px; margin-bottom: 20px; box-shadow: 0 4px 14px rgba(0,0,0,0.3);" />
   
   # VeilBid
-  ### Private Reserve Auctions on the Midnight Network
+  **The Next Generation of Private Reserve Auctions on the Midnight Network**
   
+  <br />
+
   [![VeilBid CI](https://github.com/thisisouvik/VeilBid/actions/workflows/ci.yml/badge.svg)](https://github.com/thisisouvik/VeilBid/actions/workflows/ci.yml)
   
   ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
@@ -15,112 +17,95 @@
 
 ---
 
-## 🔗 Links
+## 🔗 Quick Links
 
-- **Live Deployed App**: [https://zk-auction-dun.vercel.app/](https://zk-auction-dun.vercel.app/)
-- **Deployed Preview Contract**: `b41e9f3039d8783040b27a6da5353a72c42f863b1878bad594af6e1fc76e5352` ([View on Explorer](https://explorer.1am.xyz/contract/b41e9f3039d8783040b27a6da5353a72c42f863b1878bad594af6e1fc76e5352))
-- **Demo Video**: [https://youtu.be/SgigJdq82VI](https://youtu.be/SgigJdq82VI)
-
----
-
-## 💡 About the Product Idea
-
-### The Problem
-In traditional transparent blockchains, auction parameters such as the reserve price are fully public. This creates a significant disadvantage for sellers, as bidders will often wait until the last minute and bid exactly the reserve price, artificially suppressing the true market value of the item. Furthermore, bidders' identities and bidding strategies are completely visible, allowing competitors to track their behavior, maliciously outbid them, or front-run their transactions using MEV bots.
-
-### The Solution
-VeilBid solves this by leveraging the Midnight Network's zero-knowledge (ZK) data protection capabilities. By utilizing ZK smart contracts (written in Compact), VeilBid allows sellers to cryptographically hide their reserve price. Bidders can place bids freely without knowing the exact reserve limit. When the auction ends, the smart contract settles the auction and proves whether the highest bid met the hidden reserve price—without ever revealing the reserve price itself! Additionally, bidder identities are kept strictly private and decoupled from their real wallet addresses.
+*   🌐 **Live Deployed App**: [zk-auction-dun.vercel.app](https://zk-auction-dun.vercel.app/)
+*   📜 **Deployed Preview Contract**: [`b41e9f3039d...e5352`](https://explorer.1am.xyz/contract/b41e9f3039d8783040b27a6da5353a72c42f863b1878bad594af6e1fc76e5352)
+*   🎥 **Demo Video**: [Watch on YouTube](https://youtu.be/SgigJdq82VI)
 
 ---
 
-## 🔒 Privacy Model: What an observer can and cannot learn
+## 💡 The Core Philosophy
 
-VeilBid heavily relies on Midnight's hybrid state model to ensure maximum privacy and security:
+### ❌ The Problem with Transparent Blockchains
+*   **Exposed Reserve Prices**: Sellers lose their leverage when bidders can see exactly what the minimum acceptable price is.
+*   **Strategic Sniping**: Bidders often wait until the last possible block to bid exactly the reserve price, artificially suppressing market value.
+*   **Identity Leaks**: Public wallet addresses expose bidder identities, bidding strategies, and total wealth.
+*   **MEV Front-running**: Transparent networks allow bots to analyze pending transactions and maliciously outbid real users.
 
-- **What an observer CAN learn (Public On-chain State):**
-  - `reserve_commitment`: A cryptographic hash of the reserve price and a random salt.
-  - `highest_bid`: The current highest bid amount.
-  - `highest_bidder`: A ZK-derived identity key (NOT the actual wallet address).
-  - `status`: Whether the auction is OPEN, SETTLED, or EXPIRED.
-  - `bid_count`: Total number of bids placed.
-
-- **What an observer CANNOT learn (Private Zero-Knowledge Witness):**
-  - **Actual Reserve Price**: Kept entirely secret on the seller's device.
-  - **Seller's Private Salt**: Used to generate the commitment; never touches the chain.
-  - **Real Wallet Addresses**: Hidden behind ZK proofs to prevent identity tracking.
-  - **Bid History Correlation**: Observers cannot determine who placed which bid.
+### ✅ The VeilBid Solution
+VeilBid solves this by leveraging the **Midnight Network's Zero-Knowledge (ZK)** capabilities to build a truly private auction environment:
+*   **Hidden Reserve Prices**: Sellers cryptographically hide their reserve price. Bidders bid blindly without knowing the threshold.
+*   **Secure Settlements**: When the auction ends, the ZK smart contract mathematically proves if the highest bid met the hidden reserve—*without ever revealing what the reserve was*.
+*   **Shielded Identities**: Bidder identities are kept strictly private and entirely decoupled from their real wallet addresses.
 
 ---
 
-## 📸 Screenshots
+## 🔒 Privacy Model Breakdown
 
-### 1. Landing Page
-![Landing Page](assets/PROJECT/landing-page.png)
-*The landing page welcoming users to the VeilBid platform with a fully responsive, dark-mode glassmorphism design.*
+VeilBid utilizes Midnight's hybrid state model to protect users. Here is exactly what data is visible vs. hidden:
 
-### 2. Loading Screen
-![Loading Screen](assets/PROJECT/loading-screen.png)
-*A sleek loading overlay that displays when the app is actively syncing state with the Midnight blockchain.*
+### 👁️ Visible On-chain (Public)
+*   🟢 `reserve_commitment`: A cryptographic hash (not the actual price).
+*   🟢 `highest_bid`: The current leading bid amount.
+*   🟢 `highest_bidder`: A randomly derived ZK identity key.
+*   🟢 `status`: Auction state (`OPEN`, `SETTLED`, `EXPIRED`).
+*   🟢 `bid_count`: Total network participation.
 
-### 3. Auction Dashboard
-![Auction Dashboard](assets/PROJECT/auction-page.png)
-*The main dashboard displaying live auctions, their ZK-protected states, and the highest ZK-derived bidder keys.*
-
-### 4. Create Auction
-![Create Auction](assets/PROJECT/create-auction.png)
-*Sellers can easily create a new auction by entering their item details and a hidden reserve price.*
-
-### 5. Place Bid
-![Place Bid](assets/PROJECT/place-bid.png)
-*Bidders can securely place bids on active auctions without ever seeing the hidden reserve price.*
-
-### 6. Privacy Model Overview
-![Privacy Model](assets/PROJECT/privacy-model.png)
-*The platform clearly breaks down what data is visible on-chain and what is strictly protected by zero-knowledge proofs.*
+### 🛡️ Strictly Hidden (Zero-Knowledge)
+*   🔴 **The Actual Reserve Price**: Encrypted on the seller's local device.
+*   🔴 **The Private Salt**: Used to lock the commitment; never broadcasted.
+*   🔴 **Real Wallet Addresses**: Hidden behind ZK proofs to prevent identity tracking.
+*   🔴 **Bid History Linkage**: Impossible to trace who placed which bid.
 
 ---
 
-## 📜 Smart Contracts Description
+## 📸 Platform Showcase
 
-The VeilBid smart contract is written in **Compact** (Midnight's specialized ZK DSL). It exposes four main circuits:
-
-1. `createAuction`: Initializes the auction. The seller provides the `reserve_price` and a `salt` as private witnesses. The circuit computes the hash and stores only the `reserve_commitment` in the public state.
-2. `placeBid`: Allows anyone to place a bid. The circuit verifies that the new bid is higher than the current `highest_bid` and updates the public state accordingly.
-3. `settle`: Called by the seller to finalize the auction. The seller provides the original `reserve_price` and `salt`. The circuit proves that `hash(reserve_price, salt) == reserve_commitment` and securely evaluates if the `highest_bid >= reserve_price`.
-4. `withdrawExpired`: If the auction reaches its end block without meeting the reserve, participants can safely withdraw their locked funds.
-
-### Deployed Contracts & Transactions
-
-| Action / Type | Address / Hash | Explorer Link |
-| --- | --- | --- |
-| **Smart Contract Deployment** | `2806e44f...acff` | [View Transaction](https://explorer.1am.xyz/tx/2806e44f123c3a1066b644bad3d8f04930f69bc2107aec000e68c1fac645acff?network=preview) |
-| **Create Auction** | `dd318ad7...15d0` | [View Transaction](https://explorer.1am.xyz/tx/dd318ad7ddfe8e4fb1cff7cce05ce25ed093a4f585c163b9aca4e3013cd415d0?network=preview) |
-| **Place Bid** | `2806e44f...acff` | [View Transaction](https://explorer.1am.xyz/tx/2806e44f123c3a1066b644bad3d8f04930f69bc2107aec000e68c1fac645acff?network=preview) |
-| **Contract (Create Auction)** | `b41e9f30...5352` | [View Contract](https://explorer.1am.xyz/contract/b41e9f3039d8783040b27a6da5353a72c42f863b1878bad594af6e1fc76e5352) |
-| **Contract (Place Bid)** | `13312f0e...adfd` | [View Contract](https://explorer.1am.xyz/contract/13312f0e0b22b143f445c31b9c272f8c43c75b0c549168b1d4dbb26790feadfd) |
-
-### Contract Code & Deployment Images
-
-#### VeilBid Compact Circuit
-![Circuit Code](assets/SMART%20CONTRACTS/circuit%20screenshot.png)
-*A snippet of our zero-knowledge smart contract written in Midnight's Compact language.*
-
-#### 1. Smart Contract Deployment (Blockchain Explorer)
-![Contract Deployment](assets/SMART%20CONTRACTS/smart-contract-deployment.png)
-*Verification of the core VeilBid smart contract successfully deployed to the Midnight Preview Network.*
-
-#### 2. Create Auction Transaction
-![Create Auction Tx](assets/SMART%20CONTRACTS/create-auction.png)
-*The on-chain transaction record of a seller securely creating a new auction with a hidden reserve commitment.*
-
-#### 3. Place Bid Transaction
-![Place Bid Tx](assets/SMART%20CONTRACTS/place-bid.png)
-*The on-chain transaction record of a bidder placing a bid, showing how actual wallet addresses remain private.*
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><b>1. Landing Page</b><br><img src="assets/PROJECT/landing-page.png" width="400"/><br><i>Fully responsive, glassmorphism UI</i></td>
+      <td align="center"><b>2. Syncing State</b><br><img src="assets/PROJECT/loading-screen.png" width="400"/><br><i>Sleek loading overlays during chain sync</i></td>
+    </tr>
+    <tr>
+      <td align="center"><b>3. Live Auctions</b><br><img src="assets/PROJECT/auction-page.png" width="400"/><br><i>Dashboard displaying ZK-protected states</i></td>
+      <td align="center"><b>4. Creating an Auction</b><br><img src="assets/PROJECT/create-auction.png" width="400"/><br><i>Enter a secret reserve price</i></td>
+    </tr>
+    <tr>
+      <td align="center"><b>5. Placing a Bid</b><br><img src="assets/PROJECT/place-bid.png" width="400"/><br><i>Securely bid without seeing the reserve</i></td>
+      <td align="center"><b>6. Privacy Breakdown</b><br><img src="assets/PROJECT/privacy-model.png" width="400"/><br><i>Transparent privacy model explanation</i></td>
+    </tr>
+  </table>
+</div>
 
 ---
 
-## 🏗 Project Architecture
+## 📜 Zero-Knowledge Smart Contracts
 
+The VeilBid smart contract is written entirely in **Compact** (Midnight's specialized ZK DSL). 
+
+### The 4 Core ZK Circuits:
+1.  **`createAuction`**: The seller hashes their `reserve_price` + `salt` locally. Only the resulting `reserve_commitment` is sent to the blockchain.
+2.  **`placeBid`**: Verifies the new bid is higher than the current `highest_bid` without exposing the bidder's real address.
+3.  **`settle`**: The seller proves that `hash(secret_price, salt) == reserve_commitment`, and the contract evaluates if the highest bid won.
+4.  **`withdrawExpired`**: Allows participants to safely reclaim locked funds if the reserve wasn't met.
+
+### On-Chain Verifications
+
+| Action | Transaction Hash | Explorer Link |
+| :--- | :--- | :--- |
+| **Contract Deployment** | `2806e44f...acff` | [View Tx](https://explorer.1am.xyz/tx/2806e44f123c3a1066b644bad3d8f04930f69bc2107aec000e68c1fac645acff?network=preview) |
+| **Create Auction** | `dd318ad7...15d0` | [View Tx](https://explorer.1am.xyz/tx/dd318ad7ddfe8e4fb1cff7cce05ce25ed093a4f585c163b9aca4e3013cd415d0?network=preview) |
+| **Place Bid** | `2806e44f...acff` | [View Tx](https://explorer.1am.xyz/tx/2806e44f123c3a1066b644bad3d8f04930f69bc2107aec000e68c1fac645acff?network=preview) |
+
+> *Images of the Compact Circuit code and Block Explorer receipts are available in the `/assets/SMART CONTRACTS/` directory.*
+
+---
+
+## 🏗 Architecture & Workflow
+
+### Technical Architecture
 ```mermaid
 graph TD
     A[Next.js Frontend] -->|API Routes| B(Prisma / Neon Postgres)
@@ -132,10 +117,7 @@ graph TD
     D -->|Read on-chain state| A
 ```
 
----
-
-## 🔄 User Workflow
-
+### Protocol Workflow
 ```mermaid
 sequenceDiagram
     actor Seller
@@ -143,122 +125,79 @@ sequenceDiagram
     participant VeilBid App
     participant Midnight Network
 
-    Seller->>VeilBid App: Enter Item Name & Reserve Price
-    VeilBid App->>VeilBid App: Hash(Reserve Price, Salt)
-    VeilBid App->>Midnight Network: createAuction(Commitment)
+    Seller->>VeilBid App: Enter Item Name & Secret Reserve
+    VeilBid App->>VeilBid App: Local Hash(Reserve, Salt)
+    VeilBid App->>Midnight Network: deployContract(Commitment)
     Midnight Network-->>VeilBid App: Contract Deployed
-    Bidder->>VeilBid App: View Active Auctions
+    
     Bidder->>VeilBid App: Enter Bid Amount
     VeilBid App->>Midnight Network: placeBid()
     Midnight Network-->>VeilBid App: Highest Bid Updated
+    
     Seller->>VeilBid App: Click "Reveal & Settle"
-    VeilBid App->>Midnight Network: settle(Private Reserve Price, Salt)
+    VeilBid App->>Midnight Network: settle(Private Reserve, Salt)
     Midnight Network-->>VeilBid App: Auction Settled / Winner Declared
 ```
 
 ---
 
-## 📁 File Structure
+## 📁 Repository Structure
 
 ```text
 VeilBid/
-├── app/                    # Next.js App Router (Frontend)
-│   ├── api/                # API Routes for database interactions
-│   ├── auctions/           # Main Auction Dashboard page
-│   └── globals.css         # UI Design system (Tailwind)
-├── components/             # Reusable React components (Navbar, AuctionCard)
+├── app/                    # Next.js App Router (Frontend UI)
+├── components/             # Reusable React components
 ├── contract/
 │   └── src/
-│       ├── auction.compact # The Midnight ZK Smart Contract
+│       ├── auction.compact # Core Midnight ZK Smart Contract
 │       └── auction.test.ts # Smart Contract automated tests
-├── hooks/                  # Custom React hooks (e.g., useWallet)
-├── lib/                    # Core logic and Midnight SDK integration
-│   ├── auction-api.ts      # Wraps the Midnight JS SDK for auction interactions
-│   ├── providers.ts        # Configures the 6 Midnight providers
-│   └── prisma.ts           # Database client
-├── prisma/                 # Prisma schema for Neon Postgres DB
-├── public/                 # Static assets and ZK compiled keys
-└── scripts/                # Utility deployment scripts
+├── hooks/                  # Custom React hooks (Wallet context)
+├── lib/                    # Midnight SDK API integration & Providers
+├── prisma/                 # Neon Postgres Database Schema
+└── public/                 # Static assets and ZK compiled keys
 ```
 
 ---
 
-## ✅ Test Cases
+## ✅ Security & Testing
 
-The smart contract is rigorously tested using Vitest and the Midnight testing environment to ensure the privacy and security of the ZK circuits.
+The VeilBid smart contract is rigorously tested using Vitest inside the Midnight testing environment to guarantee zero-knowledge constraints hold true under edge cases.
 
-**How to run the tests locally:**
+*   **Total Test Cases**: 15 exhaustive ZK logic tests.
+*   **Result**: `PASS` (See `assets/TEST/test screenshot.png`)
+
+To run them yourself:
 ```bash
-# Install dependencies
 npm install
-
-# Run the test suite
 npm test
 ```
 
-### Test Results
+---
 
-![Test Suite Passed](assets/TEST/test%20screenshot.png)
-*All 15 rigorous test cases testing the ZK logic, privacy constraints, and auction lifecycle have passed successfully in the Midnight test environment.*
+## 📚 Project Documentation
+
+The complete documentation for VeilBid has been modularized for easy reading. Check out the following files:
+
+*   📖 **[SETUP.md](./SETUP.md)**: A complete guide on installing the 1AM Wallet, acquiring testnet tokens, and running the project locally.
+*   📖 **[USAGE.md](./USAGE.md)**: Step-by-step instructions for creating auctions, placing bids, and settling smart contracts.
+*   📖 **[PROPOSAL.md](./PROPOSAL.md)**: Detailed technical specifications, original problem statements, and the builder proposal.
 
 ---
 
-## 🛠 Getting Started (For First-Time Users)
+## 🚀 The Future of VeilBid
 
-If you are a judge or a new user wanting to run this project locally, follow these simple steps to set up your Midnight environment and start bidding!
+**Planned Enhancements:**
+*   **Dynamic Auto-Bidding**: Set maximum limits without revealing your ceiling to the network.
+*   **Native ZK-NFTs**: Seamlessly and privately transfer Midnight NFTs to the winner upon auction settlement.
 
-### Step 1: Install the 1AM Wallet
-VeilBid interacts with the Midnight Network via the 1AM Wallet browser extension.
-1. Download the **1AM Wallet** extension from the Chrome Web Store (or compatible Chromium browser).
-2. Create a new wallet and securely save your 24-word recovery phrase.
-3. Once created, click on the network dropdown at the top of the wallet and ensure it is set to **Midnight Preview** (TestNet).
-
-### Step 2: Get Free TestNet Tokens (Faucet)
-You need test tokens (tNIGHT) to deploy contracts and place bids.
-1. Copy your wallet address from the 1AM Wallet extension.
-2. Go to the [Midnight Preview Faucet](https://faucet.testnet-01.midnight.network/).
-3. Paste your address, request tokens, and wait a few seconds. Your wallet will be funded!
-
-### Step 3: Run VeilBid Locally
-Now that your wallet is ready, let's run the application.
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/thisisouvik/VeilBid.git
-cd VeilBid
-
-# 2. Install Node.js dependencies
-npm install
-
-# 3. Set up environment variables
-# (You only need a Postgres database URL if you are testing the backend DB sync)
-cp .env.example .env.local
-
-# 4. Start the development server
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser. Click **"Connect Wallet"**, approve the connection in your 1AM extension, and you are ready to create private auctions!
+**Real-World Use Cases:**
+*   🎨 **High-Value Art**: Wealthy buyers demand anonymity. Sellers need hidden minimums to spark bidding wars.
+*   🏢 **Corporate Procurements**: Government or B2B sealed-bid contracts where pricing must remain absolutely secret until final evaluation.
+*   📉 **DeFi Liquidations**: Private collateral liquidation to avoid market panic and front-running bots.
 
 ---
 
-## 🚀 Future Implementation & Real World Applications
-
-**Future Enhancements:**
-- **Dynamic Bidding:** Implementing auto-bidding limits without revealing maximum bids.
-- **Multi-token support:** Allowing bids in stablecoins or other Midnight-native tokens.
-- **NFT Integration:** Extending the contract to officially transfer Midnight-native NFTs to the winner upon settlement.
-
-**Real World Applications:**
-- **High-Value Art & Real Estate:** Wealthy buyers often want to bid anonymously. Sellers want to ensure their minimum acceptable price is hidden to drive competitive bidding.
-- **Sealed-bid Procurements:** Government and corporate contract bidding where prices must remain completely secret until the auction ends.
-- **DeFi Liquidations:** Liquidating collateral privately without causing market panic or front-running by MEV bots.
-
----
-
-## 🙏 Acknowledgements
-
-Done in Midnight! Bug Fixedx in MidNight! Wallet started syncing in Daytime but finished in MidNight!
-
- Thanks to the Midnight team for their support and guidance throughout the development of this project. Special thanks to the Midnight community for their feedback and testing assistance.
-
+<div align="center">
+  <b>Done in Midnight! 🌙</b><br>
+  <i>Built with ❤️ by the Midnight Builder Community.</i>
+</div>
