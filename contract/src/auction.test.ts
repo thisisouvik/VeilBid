@@ -1,5 +1,5 @@
 /**
- * auction.test.ts — ZKAuction Contract Tests (Vitest)
+ * auction.test.ts — VeilBid Contract Tests (Vitest)
  *
  * Phase 1: Full test suite for the private reserve auction contract.
  *
@@ -197,7 +197,7 @@ const ITEM_HASH     = crypto.createHash('sha256').update('Vintage Compact Keyboa
 
 // ── Test Suite ──────────────────────────────────────────────────────────────
 
-describe('ZKAuction — Private Reserve Auction', () => {
+describe('VeilBid — Private Reserve Auction', () => {
 
   // ── TEST 1: Full Happy Path ─────────────────────────────────────────────
   describe('Test 1: Full happy-path lifecycle (create → bid → settle)', () => {
