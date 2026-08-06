@@ -39,7 +39,7 @@ export default function Home() {
             transform: 'translate(-50%, -50%)',
             width: '80%',
             height: '80%',
-            background: 'radial-gradient(ellipse, rgba(139,92,246,0.15) 0%, transparent 70%)',
+            background: 'radial-gradient(ellipse, rgba(20,184,166,0.15) 0%, transparent 70%)',
             zIndex: -1,
             pointerEvents: 'none',
           }} />
@@ -49,7 +49,7 @@ export default function Home() {
             style={{ display: 'inline-flex', marginBottom: 24, fontSize: 13, padding: '8px 16px', fontWeight: 600 }}
           >
             <span className="pulse-dot" />
-            Live on Midnight Preprod
+            Live on Midnight Preview
           </div>
 
           <h1
@@ -64,10 +64,10 @@ export default function Home() {
               maxWidth: 900,
             }}
           >
-            The Ultimate
+            The Next Generation of
             <br />
             <span className="gradient-text">
-              Zero-Knowledge Auction Platform
+              Private Auctions
             </span>
           </h1>
 
@@ -81,13 +81,11 @@ export default function Home() {
               marginBottom: 48,
             }}
           >
-            Sell high-value items with absolute privacy. Built on Midnight Network, 
-            reserve prices remain mathematically hidden while proving correct settlements. 
-            No more front-running. No more revealed strategies.
+            VeilBid ensures your highest value assets are traded in complete secrecy. Leveraging the Midnight Network, we guarantee mathematically proven privacy for reserve prices and bidder identities.
           </p>
 
           <div className="fade-up stagger-3" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
-            <Link href="/auctions" className="btn btn-primary" style={{ fontSize: 18, padding: '16px 36px', boxShadow: '0 0 30px rgba(139,92,246,0.4)' }}>
+            <Link href="/auctions" className="btn btn-primary" style={{ fontSize: 18, padding: '16px 36px', boxShadow: '0 0 30px rgba(20,184,166,0.4)' }}>
               Launch App
             </Link>
             <Link href="/privacy" className="btn btn-ghost" style={{ fontSize: 18, padding: '16px 36px', border: '1px solid rgba(255,255,255,0.1)' }}>
@@ -100,7 +98,7 @@ export default function Home() {
         <section style={{ width: '100%', maxWidth: 1200, padding: '80px 24px', zIndex: 10 }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
             <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 700, marginBottom: 16 }}>
-              Why ZKAuction?
+              Why VeilBid?
             </h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: 18, maxWidth: 600, margin: '0 auto' }}>
               Traditional blockchain auctions expose all bids and reserves to the public. 
@@ -137,7 +135,7 @@ export default function Home() {
             {/* Inner glow */}
             <div style={{
               position: 'absolute', top: 0, left: 0, right: 0, height: '4px',
-              background: 'var(--grad-purple-cyan)', opacity: 0.8
+              background: 'var(--grad-teal-emerald)', opacity: 0.8
             }} />
             
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 700, marginBottom: 48 }}>
@@ -146,14 +144,14 @@ export default function Home() {
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 32, textAlign: 'left' }}>
               <div>
-                <div style={{ color: 'var(--cyan-400)', fontWeight: 800, fontSize: 48, opacity: 0.3, lineHeight: 1, marginBottom: 16 }}>01</div>
+                <div style={{ color: 'var(--teal-400)', fontWeight: 800, fontSize: 48, opacity: 0.3, lineHeight: 1, marginBottom: 16 }}>01</div>
                 <h4 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>Cryptographic Commitment</h4>
                 <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>
                   The seller locks a hash of their reserve price and a random salt on the blockchain. The actual price never leaves their device.
                 </p>
               </div>
               <div>
-                <div style={{ color: 'var(--purple-400)', fontWeight: 800, fontSize: 48, opacity: 0.3, lineHeight: 1, marginBottom: 16 }}>02</div>
+                <div style={{ color: 'var(--emerald-400)', fontWeight: 800, fontSize: 48, opacity: 0.3, lineHeight: 1, marginBottom: 16 }}>02</div>
                 <h4 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>Shielded Bidding</h4>
                 <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>
                   Bidders submit their bids on-chain. Bidder identities are masked using derived cryptographic keys, not public addresses.
@@ -182,7 +180,7 @@ export default function Home() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="Logo" width={24} height={24} style={{ filter: 'grayscale(1) brightness(1.5)', opacity: 0.7 }} />
-            <span style={{ fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em' }}>ZKAuction</span>
+            <span style={{ fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em' }}>VeilBid</span>
           </div>
           <p style={{ fontSize: 14, color: 'var(--text-muted)' }}>
             The premier privacy-preserving auction dApp. Powered by Midnight Network.

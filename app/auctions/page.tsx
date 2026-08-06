@@ -50,6 +50,7 @@ function AuctionPage() {
   const [auctions, setAuctions]   = useState<Array<{ address: string; state: AuctionState; itemDescription: string; deployerAddress: string | null }>>([]);
   const [lookupAddress, setLookupAddress] = useState('');
   const [loadingAuctions, setLoadingAuctions] = useState(false);
+  const [filter, setFilter] = useState<'ALL' | 'OPEN' | 'EXPIRED' | 'SETTLED'>('ALL');
 
   // Modal state
   const [showCreate, setShowCreate] = useState(false);
@@ -154,7 +155,7 @@ function AuctionPage() {
       
       // Mark this contract as one deployed by this user (stored locally as a fallback)
       try {
-        const key = 'zkauction:seller-contracts';
+        const key = 'veilbid:seller-contracts';
         const existing: string[] = JSON.parse(localStorage.getItem(key) ?? '[]');
         if (!existing.includes(address)) existing.push(address);
         localStorage.setItem(key, JSON.stringify(existing));
@@ -180,7 +181,7 @@ function AuctionPage() {
             href={`https://explorer.1am.xyz/address/${address}?network=preview`}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: 'var(--cyan-400)', textDecoration: 'underline' }}
+            style={{ color: 'var(--teal-400)', textDecoration: 'underline' }}
           >
             {address.slice(0, 16)}…
           </a>
@@ -218,7 +219,7 @@ function AuctionPage() {
             href={`https://explorer.1am.xyz/tx/${result.txHash}?network=preview`}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: 'var(--cyan-400)', textDecoration: 'underline' }}
+            style={{ color: 'var(--teal-400)', textDecoration: 'underline' }}
           >
             {result.txHash.slice(0, 16)}…
           </a>
@@ -327,33 +328,18 @@ function AuctionPage() {
       <main className="flex-1 w-full px-4 py-8 md:px-6 md:py-12" style={{ maxWidth: 1200, margin: '0 auto' }}>
 
         <section style={{ textAlign: 'center', marginBottom: 40, marginTop: 20 }}>
-          {wallet.isConnected ? (
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button
-              id="create-auction-btn"
-              className="btn btn-primary"
-              onClick={() => setShowCreate(true)}
-              style={{ fontSize: 16, padding: '14px 28px' }}
-            >
-              <PlusIcon />
-              Create Private Auction
-            </button>
-            <button
-              id="refresh-auctions-btn"
-              className="btn btn-ghost"
-              onClick={loadAuctions}
-              disabled={loadingAuctions}
-              style={{ fontSize: 15, padding: '14px 20px', border: '1px solid rgba(255,255,255,0.1)' }}
-              title="Refresh auction list"
-            >
-              <RefreshIcon spinning={loadingAuctions} />
-              {loadingAuctions ? 'Syncing…' : 'Refresh'}
-            </button>
-          </div>
-          ) : (
-            <div style={{ padding: '40px', background: 'rgba(255,255,255,0.02)', borderRadius: 16, border: '1px dashed rgba(255,255,255,0.1)' }}>
-              <h2 style={{ fontSize: 24, marginBottom: 16, fontFamily: 'var(--font-display)' }}>Connect to continue</h2>
-              <p style={{ color: 'var(--text-secondary)', marginBottom: 24 }}>You need to connect your 1AM wallet to interact with auctions.</p>
+            {wallet.isConnected ? (
+              <button
+                id="create-auction-btn"
+                className="btn btn-primary"
+                onClick={() => setShowCreate(true)}
+                style={{ fontSize: 16, padding: '14px 28px' }}
+              >
+                <PlusIcon />
+                Create Private Auction
+              </button>
+            ) : (
               <button
                 id="hero-connect-btn"
                 className="btn btn-primary"
@@ -361,10 +347,22 @@ function AuctionPage() {
                 disabled={wallet.isConnecting}
                 style={{ fontSize: 16, padding: '14px 28px' }}
               >
-                {wallet.isConnecting ? <><span className="spinner" />Connecting…</> : <>Connect 1AM Wallet</>}
+                <PlusIcon />
+                {wallet.isConnecting ? 'Connecting…' : 'Connect to Create'}
               </button>
-            </div>
-          )}
+            )}
+            <button
+              id="refresh-auctions-btn"
+              className="btn btn-ghost"
+              onClick={loadAuctions}
+              disabled={loadingAuctions || !wallet.isConnected}
+              style={{ fontSize: 15, padding: '14px 20px', border: '1px solid rgba(255,255,255,0.1)' }}
+              title="Refresh auction list"
+            >
+              <RefreshIcon spinning={loadingAuctions} />
+              {loadingAuctions ? 'Syncing…' : 'Refresh'}
+            </button>
+          </div>
           
           {wallet.error && (
             <div style={{ marginTop: 20, color: 'var(--red-400)' }}>⚠️ {wallet.error}</div>
@@ -373,14 +371,14 @@ function AuctionPage() {
 
         {/* Stats bar */}
         <section
-          className="fade-up stagger-4 mb-14"
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}
+          className="fade-up stagger-4"
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '48px' }}
           aria-label="Protocol statistics"
         >
           <div className="stat-card">
             <div className="stat-label">Active Auctions</div>
             <div className="stat-value">{auctions.filter(a => a.state.status === AuctionStatus.OPEN).length}</div>
-            <div className="stat-sub">On Midnight Preprod</div>
+            <div className="stat-sub">On Midnight Preview</div>
           </div>
           <div className="stat-card">
             <div className="stat-label">Total Bids</div>
@@ -394,8 +392,22 @@ function AuctionPage() {
           </div>
         </section>
 
+        {/* Filter Toggle */}
+        <section className="fade-up stagger-4" style={{ display: 'flex', gap: 10, marginBottom: '24px' }}>
+          {['ALL', 'OPEN', 'EXPIRED', 'SETTLED'].map(f => (
+            <button
+              key={f}
+              onClick={() => setFilter(f as any)}
+              className={`btn ${filter === f ? 'btn-primary' : 'btn-ghost'}`}
+              style={{ padding: '8px 16px', fontSize: 13 }}
+            >
+              {f.charAt(0) + f.slice(1).toLowerCase()}
+            </button>
+          ))}
+        </section>
+
         {/* Auction lookup bar */}
-        <section id="auctions" className="mb-10" aria-label="Load auction by address">
+        <section id="auctions" aria-label="Load auction by address" style={{ marginBottom: '48px' }}>
           <div className="flex flex-col sm:flex-row gap-2 w-full" style={{ maxWidth: 680 }}>
             <input
               id="auction-address-input"
@@ -417,9 +429,11 @@ function AuctionPage() {
         </section>
 
         {/* Auctions grid */}
-        <section aria-label="Active auctions" className="mb-20">
+        <section aria-label="Active auctions" style={{ marginBottom: '80px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
-            {auctions.map(({ address, state, itemDescription, deployerAddress }) => {
+            {auctions
+              .filter(a => filter === 'ALL' || a.state.status === filter)
+              .map(({ address, state, itemDescription, deployerAddress }) => {
               // isSeller: compare stored deployer wallet address with current wallet address
               // Also fallback to localStorage for older auctions created before the DB change
               let isSellerForThis = false;
@@ -427,7 +441,7 @@ function AuctionPage() {
                 isSellerForThis = true;
               } else if (wallet.isConnected) {
                 try {
-                  const key = 'zkauction:seller-contracts';
+                  const key = 'veilbid:seller-contracts';
                   const sellerContracts: string[] = JSON.parse(localStorage.getItem(key) ?? '[]');
                   if (sellerContracts.includes(address)) {
                     isSellerForThis = true;
@@ -460,8 +474,8 @@ function AuctionPage() {
         {/* Footer */}
         <footer style={{ textAlign: 'center', padding: '24px 0', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
           <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>
-            ZKAuction — Built on{' '}
-            <a href="https://midnight.network" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--purple-400)', textDecoration: 'none' }}>
+            VeilBid — Built on{' '}
+            <a href="https://midnight.network" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--teal-400)', textDecoration: 'none' }}>
               Midnight Network
             </a>
             {' '}· Zero-knowledge private reserve auctions · Open source
@@ -501,7 +515,7 @@ function PrivacyItem({
   desc: string;
   variant: 'visible' | 'hidden';
 }) {
-  const color = variant === 'visible' ? 'var(--green-400)' : 'var(--purple-400)';
+  const color = variant === 'visible' ? 'var(--green-400)' : 'var(--teal-400)';
   return (
     <div style={{ display: 'flex', gap: 10, marginBottom: 14 }}>
       <span style={{ fontSize: 14, flexShrink: 0, marginTop: 2 }}>{icon}</span>
@@ -559,12 +573,12 @@ function LoadingOverlay() {
       <div
         style={{
           background: 'rgba(255,255,255,0.04)',
-          border: '1px solid rgba(139,92,246,0.25)',
+          border: '1px solid rgba(20,184,166,0.25)',
           borderRadius: 24,
           padding: '48px 56px',
           textAlign: 'center',
           maxWidth: 380,
-          boxShadow: '0 0 60px rgba(139,92,246,0.2), 0 24px 48px rgba(0,0,0,0.5)',
+          boxShadow: '0 0 60px rgba(20,184,166,0.2), 0 24px 48px rgba(0,0,0,0.5)',
           animation: 'fadeUp 0.3s ease',
         }}
       >
@@ -576,8 +590,8 @@ function LoadingOverlay() {
             inset: 0,
             borderRadius: '50%',
             border: '2px solid transparent',
-            borderTopColor: 'var(--purple-400)',
-            borderRightColor: 'var(--cyan-400)',
+            borderTopColor: 'var(--teal-400)',
+            borderRightColor: 'var(--emerald-400)',
             animation: 'spin 1.2s linear infinite',
           }} />
           {/* Inner glow */}
@@ -585,7 +599,7 @@ function LoadingOverlay() {
             position: 'absolute',
             inset: 8,
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(139,92,246,0.2) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(20,184,166,0.2) 0%, transparent 70%)',
             animation: 'pulse 2s ease-in-out infinite',
           }} />
           {/* Lock icon */}
@@ -628,7 +642,7 @@ function LoadingOverlay() {
                 width: 8,
                 height: 8,
                 borderRadius: '50%',
-                background: 'var(--purple-400)',
+                background: 'var(--teal-400)',
                 animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
               }}
             />

@@ -1,16 +1,16 @@
 <div align="center">
-  <img src="app/icon.png" alt="ZKAuction Logo" width="120" />
+  <img src="app/icon.png" alt="VeilBid Logo" width="120" />
   
-  # ZKAuction
+  # VeilBid
   ### Private Reserve Auctions on the Midnight Network
   
-  [![ZKAuction CI](https://github.com/thisisouvik/ZKAuction/actions/workflows/ci.yml/badge.svg)](https://github.com/thisisouvik/ZKAuction/actions/workflows/ci.yml)
+  [![VeilBid CI](https://github.com/thisisouvik/VeilBid/actions/workflows/ci.yml/badge.svg)](https://github.com/thisisouvik/VeilBid/actions/workflows/ci.yml)
   
   ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
   ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
   ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
   ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
-  ![Midnight](https://img.shields.io/badge/Midnight_Preprod-8b5cf6?style=for-the-badge)
+  ![Midnight](https://img.shields.io/badge/Midnight_Preview-8b5cf6?style=for-the-badge)
 </div>
 
 ---
@@ -18,7 +18,7 @@
 ## 🔗 Links
 
 - **Live Deployed App**: [https://zk-auction-dun.vercel.app/](https://zk-auction-dun.vercel.app/)
-- **Deployed Preprod Contract**: `b41e9f3039d8783040b27a6da5353a72c42f863b1878bad594af6e1fc76e5352` ([View on Explorer](https://explorer.1am.xyz/contract/b41e9f3039d8783040b27a6da5353a72c42f863b1878bad594af6e1fc76e5352))
+- **Deployed Preview Contract**: `b41e9f3039d8783040b27a6da5353a72c42f863b1878bad594af6e1fc76e5352` ([View on Explorer](https://explorer.1am.xyz/contract/b41e9f3039d8783040b27a6da5353a72c42f863b1878bad594af6e1fc76e5352))
 - **Demo Video**: [https://youtu.be/SgigJdq82VI](https://youtu.be/SgigJdq82VI)
 
 ---
@@ -29,13 +29,13 @@
 In traditional transparent blockchains, auction parameters such as the reserve price are fully public. This creates a significant disadvantage for sellers, as bidders will often wait until the last minute and bid exactly the reserve price, artificially suppressing the true market value of the item. Furthermore, bidders' identities and bidding strategies are completely visible, allowing competitors to track their behavior, maliciously outbid them, or front-run their transactions using MEV bots.
 
 ### The Solution
-ZKAuction solves this by leveraging the Midnight Network's zero-knowledge (ZK) data protection capabilities. By utilizing ZK smart contracts (written in Compact), ZKAuction allows sellers to cryptographically hide their reserve price. Bidders can place bids freely without knowing the exact reserve limit. When the auction ends, the smart contract settles the auction and proves whether the highest bid met the hidden reserve price—without ever revealing the reserve price itself! Additionally, bidder identities are kept strictly private and decoupled from their real wallet addresses.
+VeilBid solves this by leveraging the Midnight Network's zero-knowledge (ZK) data protection capabilities. By utilizing ZK smart contracts (written in Compact), VeilBid allows sellers to cryptographically hide their reserve price. Bidders can place bids freely without knowing the exact reserve limit. When the auction ends, the smart contract settles the auction and proves whether the highest bid met the hidden reserve price—without ever revealing the reserve price itself! Additionally, bidder identities are kept strictly private and decoupled from their real wallet addresses.
 
 ---
 
 ## 🔒 Privacy Model: What an observer can and cannot learn
 
-ZKAuction heavily relies on Midnight's hybrid state model to ensure maximum privacy and security:
+VeilBid heavily relies on Midnight's hybrid state model to ensure maximum privacy and security:
 
 - **What an observer CAN learn (Public On-chain State):**
   - `reserve_commitment`: A cryptographic hash of the reserve price and a random salt.
@@ -56,7 +56,7 @@ ZKAuction heavily relies on Midnight's hybrid state model to ensure maximum priv
 
 ### 1. Landing Page
 ![Landing Page](assets/PROJECT/landing-page.png)
-*The landing page welcoming users to the ZKAuction platform with a fully responsive, dark-mode glassmorphism design.*
+*The landing page welcoming users to the VeilBid platform with a fully responsive, dark-mode glassmorphism design.*
 
 ### 2. Loading Screen
 ![Loading Screen](assets/PROJECT/loading-screen.png)
@@ -82,7 +82,7 @@ ZKAuction heavily relies on Midnight's hybrid state model to ensure maximum priv
 
 ## 📜 Smart Contracts Description
 
-The ZKAuction smart contract is written in **Compact** (Midnight's specialized ZK DSL). It exposes four main circuits:
+The VeilBid smart contract is written in **Compact** (Midnight's specialized ZK DSL). It exposes four main circuits:
 
 1. `createAuction`: Initializes the auction. The seller provides the `reserve_price` and a `salt` as private witnesses. The circuit computes the hash and stores only the `reserve_commitment` in the public state.
 2. `placeBid`: Allows anyone to place a bid. The circuit verifies that the new bid is higher than the current `highest_bid` and updates the public state accordingly.
@@ -101,13 +101,13 @@ The ZKAuction smart contract is written in **Compact** (Midnight's specialized Z
 
 ### Contract Code & Deployment Images
 
-#### ZKAuction Compact Circuit
+#### VeilBid Compact Circuit
 ![Circuit Code](assets/SMART%20CONTRACTS/circuit%20screenshot.png)
 *A snippet of our zero-knowledge smart contract written in Midnight's Compact language.*
 
 #### 1. Smart Contract Deployment (Blockchain Explorer)
 ![Contract Deployment](assets/SMART%20CONTRACTS/smart-contract-deployment.png)
-*Verification of the core ZKAuction smart contract successfully deployed to the Midnight Preprod Network.*
+*Verification of the core VeilBid smart contract successfully deployed to the Midnight Preview Network.*
 
 #### 2. Create Auction Transaction
 ![Create Auction Tx](assets/SMART%20CONTRACTS/create-auction.png)
@@ -125,7 +125,7 @@ The ZKAuction smart contract is written in **Compact** (Midnight's specialized Z
 graph TD
     A[Next.js Frontend] -->|API Routes| B(Prisma / Neon Postgres)
     A -->|window.midnight.1am| C{1AM Wallet}
-    C -->|Sign Tx| D[Midnight Preprod Network]
+    C -->|Sign Tx| D[Midnight Preview Network]
     A -->|Midnight JS SDK| D
     A -->|Local ZK Proofs| E[Midnight Proof Server]
     B -->|Store off-chain data| F[(Neon DB)]
@@ -140,20 +140,20 @@ graph TD
 sequenceDiagram
     actor Seller
     actor Bidder
-    participant ZKAuction App
+    participant VeilBid App
     participant Midnight Network
 
-    Seller->>ZKAuction App: Enter Item Name & Reserve Price
-    ZKAuction App->>ZKAuction App: Hash(Reserve Price, Salt)
-    ZKAuction App->>Midnight Network: createAuction(Commitment)
-    Midnight Network-->>ZKAuction App: Contract Deployed
-    Bidder->>ZKAuction App: View Active Auctions
-    Bidder->>ZKAuction App: Enter Bid Amount
-    ZKAuction App->>Midnight Network: placeBid()
-    Midnight Network-->>ZKAuction App: Highest Bid Updated
-    Seller->>ZKAuction App: Click "Reveal & Settle"
-    ZKAuction App->>Midnight Network: settle(Private Reserve Price, Salt)
-    Midnight Network-->>ZKAuction App: Auction Settled / Winner Declared
+    Seller->>VeilBid App: Enter Item Name & Reserve Price
+    VeilBid App->>VeilBid App: Hash(Reserve Price, Salt)
+    VeilBid App->>Midnight Network: createAuction(Commitment)
+    Midnight Network-->>VeilBid App: Contract Deployed
+    Bidder->>VeilBid App: View Active Auctions
+    Bidder->>VeilBid App: Enter Bid Amount
+    VeilBid App->>Midnight Network: placeBid()
+    Midnight Network-->>VeilBid App: Highest Bid Updated
+    Seller->>VeilBid App: Click "Reveal & Settle"
+    VeilBid App->>Midnight Network: settle(Private Reserve Price, Salt)
+    Midnight Network-->>VeilBid App: Auction Settled / Winner Declared
 ```
 
 ---
@@ -161,7 +161,7 @@ sequenceDiagram
 ## 📁 File Structure
 
 ```text
-ZKAuction/
+VeilBid/
 ├── app/                    # Next.js App Router (Frontend)
 │   ├── api/                # API Routes for database interactions
 │   ├── auctions/           # Main Auction Dashboard page
@@ -208,24 +208,24 @@ npm test
 If you are a judge or a new user wanting to run this project locally, follow these simple steps to set up your Midnight environment and start bidding!
 
 ### Step 1: Install the 1AM Wallet
-ZKAuction interacts with the Midnight Network via the 1AM Wallet browser extension.
+VeilBid interacts with the Midnight Network via the 1AM Wallet browser extension.
 1. Download the **1AM Wallet** extension from the Chrome Web Store (or compatible Chromium browser).
 2. Create a new wallet and securely save your 24-word recovery phrase.
-3. Once created, click on the network dropdown at the top of the wallet and ensure it is set to **Midnight Preprod** (TestNet).
+3. Once created, click on the network dropdown at the top of the wallet and ensure it is set to **Midnight Preview** (TestNet).
 
 ### Step 2: Get Free TestNet Tokens (Faucet)
 You need test tokens (tNIGHT) to deploy contracts and place bids.
 1. Copy your wallet address from the 1AM Wallet extension.
-2. Go to the [Midnight Preprod Faucet](https://faucet.testnet-01.midnight.network/).
+2. Go to the [Midnight Preview Faucet](https://faucet.testnet-01.midnight.network/).
 3. Paste your address, request tokens, and wait a few seconds. Your wallet will be funded!
 
-### Step 3: Run ZKAuction Locally
+### Step 3: Run VeilBid Locally
 Now that your wallet is ready, let's run the application.
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/thisisouvik/ZKAuction.git
-cd ZKAuction
+git clone https://github.com/thisisouvik/VeilBid.git
+cd VeilBid
 
 # 2. Install Node.js dependencies
 npm install

@@ -2,7 +2,7 @@
 
 /**
  * components/Navbar.tsx
- * Top navigation bar with ZKAuction branding and 1AM wallet connect button.
+ * Top navigation bar with VeilBid branding and 1AM wallet connect button.
  */
 
 import type { WalletHookState } from '@/hooks/useWallet';
@@ -29,7 +29,7 @@ export function Navbar({ wallet }: NavbarProps) {
       <div className="px-4 md:px-6 h-16" style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          {/* ZKAuction logo from /public/logo.png */}
+          {/* VeilBid logo from /public/logo.png */}
           <div
             style={{
               width: 40,
@@ -46,7 +46,7 @@ export function Navbar({ wallet }: NavbarProps) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo.png"
-              alt="ZKAuction logo"
+              alt="VeilBid logo"
               width={40}
               height={40}
               style={{ objectFit: 'contain', width: '100%', height: '100%' }}
@@ -65,7 +65,7 @@ export function Navbar({ wallet }: NavbarProps) {
                 letterSpacing: '-0.02em',
               }}
             >
-              ZKAuction
+              VeilBid
             </span>
             <span
               style={{
@@ -95,10 +95,15 @@ export function Navbar({ wallet }: NavbarProps) {
         {/* Wallet button area */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, position: 'relative' }}>
           {wallet.isConnected ? (
-            <ConnectedBadge
-              address={wallet.shortAddress!}
-              onDisconnect={wallet.disconnect}
-            />
+            <>
+              <Link href="/dashboard" className="btn btn-primary" style={{ padding: '7px 14px', fontSize: 13 }}>
+                Dashboard
+              </Link>
+              <ConnectedBadge
+                address={wallet.shortAddress!}
+                onDisconnect={wallet.disconnect}
+              />
+            </>
           ) : wallet.isPendingError ? (
             /* ── "Already pending" error state ── */
             <PendingErrorBadge onReset={wallet.resetAndReconnect} onDiscard={wallet.disconnect} />

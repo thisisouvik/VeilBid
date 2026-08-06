@@ -16,12 +16,12 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "ZKAuction — Private Reserve Auction on Midnight",
+  title: "VeilBid — Private Reserve Auction on Midnight",
   description:
     "A zero-knowledge private reserve auction dApp on the Midnight Network. Reserve prices stay hidden. Bidder identities are ZK-derived. Full privacy by default.",
   keywords: ["ZK", "auction", "Midnight Network", "zero-knowledge", "privacy", "blockchain", "dApp"],
   openGraph: {
-    title: "ZKAuction — Private Reserve Auction",
+    title: "VeilBid — Private Reserve Auction",
     description: "Zero-knowledge auctions where reserve prices and bidder identities stay private by cryptographic guarantee.",
     type: "website",
   },
