@@ -166,7 +166,7 @@ export class Contract {
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
           __compactRuntime.typeError('settle',
                                      'argument 1 (as invoked from Typescript)',
-                                     'auction.compact line 212 char 1',
+                                     'auction.compact line 215 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
@@ -189,7 +189,7 @@ export class Contract {
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
           __compactRuntime.typeError('withdrawExpired',
                                      'argument 1 (as invoked from Typescript)',
-                                     'auction.compact line 254 char 1',
+                                     'auction.compact line 257 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
@@ -591,6 +591,20 @@ export class Contract {
                             'Bid must exceed current highest bid');
     const bidder_key_0 = this._persistentHash_0(this._local_secret_key_0(context,
                                                                          partialProofData));
+    __compactRuntime.assert(!this._equal_2(bidder_key_0,
+                                           _descriptor_2.fromValue(__compactRuntime.queryLedgerState(context,
+                                                                                                     partialProofData,
+                                                                                                     [
+                                                                                                      { dup: { n: 0 } },
+                                                                                                      { idx: { cached: false,
+                                                                                                               pushPath: false,
+                                                                                                               path: [
+                                                                                                                      { tag: 'value',
+                                                                                                                        value: { value: _descriptor_8.toValue(0n),
+                                                                                                                                 alignment: _descriptor_8.alignment() } }] } },
+                                                                                                      { popeq: { cached: false,
+                                                                                                                 result: undefined } }]).value)),
+                            'Seller cannot bid on their own auction');
     __compactRuntime.queryLedgerState(context,
                                       partialProofData,
                                       [
@@ -630,7 +644,7 @@ export class Contract {
     return [];
   }
   _settle_0(context, partialProofData) {
-    __compactRuntime.assert(this._equal_2(_descriptor_2.fromValue(__compactRuntime.queryLedgerState(context,
+    __compactRuntime.assert(this._equal_3(_descriptor_2.fromValue(__compactRuntime.queryLedgerState(context,
                                                                                                     partialProofData,
                                                                                                     [
                                                                                                      { dup: { n: 0 } },
@@ -677,7 +691,7 @@ export class Contract {
                             'Auction not configured');
     const recomputed_0 = this._persistentHash_0(this._commitment_salt_0(context,
                                                                         partialProofData));
-    __compactRuntime.assert(this._equal_3(recomputed_0,
+    __compactRuntime.assert(this._equal_4(recomputed_0,
                                           _descriptor_2.fromValue(__compactRuntime.queryLedgerState(context,
                                                                                                     partialProofData,
                                                                                                     [
@@ -748,7 +762,7 @@ export class Contract {
                             'Auction is not expired');
     const caller_key_0 = this._persistentHash_0(this._local_secret_key_0(context,
                                                                          partialProofData));
-    const is_seller_0 = this._equal_4(caller_key_0,
+    const is_seller_0 = this._equal_5(caller_key_0,
                                       _descriptor_2.fromValue(__compactRuntime.queryLedgerState(context,
                                                                                                 partialProofData,
                                                                                                 [
@@ -761,7 +775,7 @@ export class Contract {
                                                                                                                             alignment: _descriptor_8.alignment() } }] } },
                                                                                                  { popeq: { cached: false,
                                                                                                             result: undefined } }]).value));
-    const is_bidder_0 = this._equal_5(caller_key_0,
+    const is_bidder_0 = this._equal_6(caller_key_0,
                                       _descriptor_2.fromValue(__compactRuntime.queryLedgerState(context,
                                                                                                 partialProofData,
                                                                                                 [
@@ -820,6 +834,10 @@ export class Contract {
     return true;
   }
   _equal_5(x0, y0) {
+    if (!x0.every((x, i) => y0[i] === x)) { return false; }
+    return true;
+  }
+  _equal_6(x0, y0) {
     if (!x0.every((x, i) => y0[i] === x)) { return false; }
     return true;
   }
