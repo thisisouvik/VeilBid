@@ -42,18 +42,47 @@ export default function DashboardPage() {
 
         {/* Wallet connection banner */}
         {!wallet.isConnected && (
-          <div className="glass p-6 text-center fade-up mb-10 mx-auto" style={{ maxWidth: 600 }}>
-            <div className="w-16 h-16 rounded-full bg-teal-500/10 flex items-center justify-center mx-auto mb-4 border border-teal-500/20">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-8 h-8 text-teal-400">
+          <div 
+            className="glass fade-up mx-auto" 
+            style={{ 
+              maxWidth: 600, 
+              padding: '40px',
+              textAlign: 'center',
+              marginBottom: '40px',
+              borderRadius: '24px',
+              border: '1px solid rgba(20, 184, 166, 0.25)',
+              background: 'linear-gradient(180deg, rgba(20, 184, 166, 0.05) 0%, rgba(8, 10, 18, 0.8) 100%)',
+              boxShadow: '0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
+            }}
+          >
+            <div style={{
+              width: 72,
+              height: 72,
+              borderRadius: '50%',
+              background: 'rgba(20, 184, 166, 0.1)',
+              border: '1px solid rgba(20, 184, 166, 0.3)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 24px',
+              boxShadow: '0 0 20px rgba(20, 184, 166, 0.2)'
+            }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal-400)" style={{ width: 32, height: 32 }}>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h2 className="text-xl font-bold text-white mb-2">Connect to your Shielded Identity</h2>
-            <p className="text-slate-400 mb-6 max-w-md mx-auto">
+            <h2 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '12px' }}>
+              Connect to your Shielded Identity
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '32px', maxWidth: 400, margin: '0 auto 32px', lineHeight: 1.6 }}>
               You must connect your 1AM wallet to access your private dashboard and decrypt your auction states.
             </p>
-            <button className="btn btn-primary px-8 py-3" onClick={wallet.connect}>
-              Connect Wallet
+            <button 
+              className="btn btn-primary" 
+              onClick={wallet.connect}
+              style={{ padding: '14px 32px', fontSize: 16, fontWeight: 700, borderRadius: 12, boxShadow: '0 4px 20px rgba(20, 184, 166, 0.3)' }}
+            >
+              Connect 1AM Wallet
             </button>
           </div>
         )}
