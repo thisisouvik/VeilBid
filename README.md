@@ -60,26 +60,6 @@ VeilBid utilizes Midnight's hybrid state model to protect users. Here is exactly
 
 ---
 
-## 📸 Platform Showcase
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center"><b>1. Landing Page</b><br><img src="assets/PROJECT/landing-page.png" width="400"/><br><i>Fully responsive, glassmorphism UI</i></td>
-      <td align="center"><b>2. Syncing State</b><br><img src="assets/PROJECT/loading-screen.png" width="400"/><br><i>Sleek loading overlays during chain sync</i></td>
-    </tr>
-    <tr>
-      <td align="center"><b>3. Live Auctions</b><br><img src="assets/PROJECT/auction-page.png" width="400"/><br><i>Dashboard displaying ZK-protected states</i></td>
-      <td align="center"><b>4. Creating an Auction</b><br><img src="assets/PROJECT/create-auction.png" width="400"/><br><i>Enter a secret reserve price</i></td>
-    </tr>
-    <tr>
-      <td align="center"><b>5. Placing a Bid</b><br><img src="assets/PROJECT/place-bid.png" width="400"/><br><i>Securely bid without seeing the reserve</i></td>
-      <td align="center"><b>6. Privacy Breakdown</b><br><img src="assets/PROJECT/privacy-model.png" width="400"/><br><i>Transparent privacy model explanation</i></td>
-    </tr>
-  </table>
-</div>
-
----
 
 ## 📜 Zero-Knowledge Smart Contracts
 
