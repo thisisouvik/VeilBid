@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model AuctionContract {
+  id               String   @id @default(uuid())
+  contractAddress  String   @unique
+  itemDescription  String
+  deployerAddress  String?  // Wallet address of the seller (used for isSeller check)
+  deployTxHash     String?  // Transaction hash of the deploy tx
+  createdAt        DateTime @default(now())
+}
