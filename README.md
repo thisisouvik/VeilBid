@@ -20,7 +20,7 @@
 ## 🔗 Quick Links
 
 *   🌐 **Live Deployed App**: [zk-auction-dun.vercel.app](https://zk-auction-dun.vercel.app/)
-*   📜 **Deployed Preview Contract**: [`b41e9f3039d...e5352`](https://explorer.1am.xyz/contract/b41e9f3039d8783040b27a6da5353a72c42f863b1878bad594af6e1fc76e5352)
+*   📜 **Deployed Preview Contract**: [`fd6bdc97815...c5cb5`](https://explorer.1am.xyz/contract/fd6bdc97815e8c3a9de7c20e1bfae641409321761684f2dbeb1746f0f34c5cb5?network=preview)
 *   🎥 **Demo Video**: [Watch on YouTube](https://youtu.be/SgigJdq82VI)
 
 ---
@@ -71,13 +71,15 @@ The VeilBid smart contract is written entirely in **Compact** (Midnight's specia
 3.  **`settle`**: The seller proves that `hash(secret_price, salt) == reserve_commitment`, and the contract evaluates if the highest bid won.
 4.  **`withdrawExpired`**: Allows participants to safely reclaim locked funds if the reserve wasn't met.
 
-### On-Chain Verifications
+### On-Chain Verifications (Midnight PREVIEW Network)
 
-| Action | Transaction Hash | Explorer Link |
+| Action | Transaction Hash / Address | Explorer Link |
 | :--- | :--- | :--- |
-| **Contract Deployment** | `2806e44f...acff` | [View Tx](https://explorer.1am.xyz/tx/2806e44f123c3a1066b644bad3d8f04930f69bc2107aec000e68c1fac645acff?network=preview) |
-| **Create Auction** | `dd318ad7...15d0` | [View Tx](https://explorer.1am.xyz/tx/dd318ad7ddfe8e4fb1cff7cce05ce25ed093a4f585c163b9aca4e3013cd415d0?network=preview) |
-| **Place Bid** | `2806e44f...acff` | [View Tx](https://explorer.1am.xyz/tx/2806e44f123c3a1066b644bad3d8f04930f69bc2107aec000e68c1fac645acff?network=preview) |
+| **Smart Contract Address** | `fd6bdc97815e8c3a9de7c20e1bfae641409321761684f2dbeb1746f0f34c5cb5` | [Verify Contract](https://explorer.1am.xyz/contract/fd6bdc97815e8c3a9de7c20e1bfae641409321761684f2dbeb1746f0f34c5cb5?network=preview) |
+| **Contract Deployment Tx** | `0d9e33a01496840e13d00dedc1d360c8c68e7b12c1395b93a4cc58f1ad38753b` | [View Tx](https://explorer.1am.xyz/tx/0d9e33a01496840e13d00dedc1d360c8c68e7b12c1395b93a4cc58f1ad38753b?network=preview) |
+| **Create Auction Tx** | `c6f356c5b4b4c3e410a7f17b487ae5e960d9ee914f1e5af661736dc0ccb75167` | [View Tx](https://explorer.1am.xyz/tx/c6f356c5b4b4c3e410a7f17b487ae5e960d9ee914f1e5af661736dc0ccb75167?network=preview) |
+| **Place Bid Tx** | `694fa889dcb764d2b8e28c847c0fe16533924c56364520633c325f0cced33e24` | [View Tx](https://explorer.1am.xyz/tx/694fa889dcb764d2b8e28c847c0fe16533924c56364520633c325f0cced33e24?network=preview) |
+| **Settle Tx** | `19d63f588c7774535a987d168ff7aa1ae27f25e356870f8109fb3ae30c7ba4bc` | [View Tx](https://explorer.1am.xyz/tx/19d63f588c7774535a987d168ff7aa1ae27f25e356870f8109fb3ae30c7ba4bc?network=preview) |
 
 > *Images of the Compact Circuit code and Block Explorer receipts are available in the `/assets/SMART CONTRACTS/` directory.*
 
