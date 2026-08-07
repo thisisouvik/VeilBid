@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "compile:contract": "compact compile contract/src/auction.compact contract/src/generated",
+    "compile:contract": "compact compile contract/src/auction.compact contract/src/generated && cp -r contract/src/generated/keys/* public/v2/keys/ && mkdir -p public/v2/keys/zkir && cp -r contract/src/generated/zkir/* public/v2/keys/zkir/",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",

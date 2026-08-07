@@ -230,8 +230,8 @@ export class AuctionAPI {
       await (submitCallTxAsync as any)(this.providers, {
         compiledContract,
         contractAddress,
-        circuitId:    'createAuction',
-        args:         [params.duration_blocks, new Uint8Array(itemHash)],
+        circuitId:      'createAuction',
+        args:           [params.duration_blocks, new Uint8Array(itemHash)],
         privateStateId: PRIVATE_STATE_ID,
       });
 
@@ -706,7 +706,7 @@ async function buildCompiledContract(privateState: any): Promise<any> {
   // Next.js automatically serves everything in /public as static assets.
   //
   // SDK will fetch: /keys/createAuction.verifier, /keys/placeBid.prover, etc.
-  const keysBaseUrl = '/keys';
+  const keysBaseUrl = '/v2/keys';
 
   // Build using the CompiledContract pipeline (imperative style to avoid TS generic issues)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

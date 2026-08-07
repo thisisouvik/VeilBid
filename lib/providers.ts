@@ -203,8 +203,8 @@ export async function buildProviders(
   //
   // NOT the indexer GraphQL endpoint.
   const zkKeysBaseUrl = typeof window !== 'undefined'
-    ? window.location.origin          // browser: http://localhost:3000
-    : 'http://localhost:3000';        // SSR fallback (should not reach here)
+    ? window.location.origin + '/v2'  // browser: http://localhost:3000/v2
+    : 'http://localhost:3000/v2';     // SSR fallback (should not reach here)
 
   const zkConfigProvider = new FetchZkConfigProvider(
     zkKeysBaseUrl,
