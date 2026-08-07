@@ -159,7 +159,6 @@ The VeilBid smart contract is rigorously tested using Vitest inside the Midnight
 Below are the test execution results verifying the circuit logic:
 
 <div align="center">
-  <img src="assets/TEST/test screenshot.png" width="800" style="margin-bottom: 10px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" alt="Test Execution Logs 1" />
   <img src="assets/TEST/test.png" width="800" style="margin-bottom: 10px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" alt="Test Execution Logs 2" />
 </div>
 
