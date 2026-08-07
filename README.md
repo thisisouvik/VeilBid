@@ -21,7 +21,7 @@
 
 *   🌐 **Live Deployed App**: [zk-auction-dun.vercel.app](https://zk-auction-dun.vercel.app/)
 *   📜 **Deployed Preview Contract**: [`fd6bdc97815...c5cb5`](https://explorer.1am.xyz/contract/fd6bdc97815e8c3a9de7c20e1bfae641409321761684f2dbeb1746f0f34c5cb5?network=preview)
-*   🎥 **Demo Video**: [Watch on YouTube](https://youtu.be/SgigJdq82VI)
+*   🎥 **Demo Video**: [Watch on Google Drive](https://drive.google.com/file/d/1DxjrDIQXpHSoJm98rQeRC6f0-LMkz-4K/view?usp=sharing)
 
 ---
 
@@ -81,7 +81,15 @@ The VeilBid smart contract is written entirely in **Compact** (Midnight's specia
 | **Place Bid Tx** | `694fa889dcb764d2b8e28c847c0fe16533924c56364520633c325f0cced33e24` | [View Tx](https://explorer.1am.xyz/tx/694fa889dcb764d2b8e28c847c0fe16533924c56364520633c325f0cced33e24?network=preview) |
 | **Settle Tx** | `19d63f588c7774535a987d168ff7aa1ae27f25e356870f8109fb3ae30c7ba4bc` | [View Tx](https://explorer.1am.xyz/tx/19d63f588c7774535a987d168ff7aa1ae27f25e356870f8109fb3ae30c7ba4bc?network=preview) |
 
-> *Images of the Compact Circuit code and Block Explorer receipts are available in the `/assets/SMART CONTRACTS/` directory.*
+Below are the Block Explorer transaction receipts verifying the zero-knowledge smart contract actions on the Midnight Preview Network:
+
+<div align="center">
+  <img src="assets/SMART CONTRACTS/smart-contract-deployment.png" width="400" style="margin: 10px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" alt="Smart Contract Deployment" />
+  <img src="assets/SMART CONTRACTS/create-auction.png" width="400" style="margin: 10px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" alt="Create Auction" />
+  <img src="assets/SMART CONTRACTS/place-bid.png" width="400" style="margin: 10px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" alt="Place Bid" />
+  <img src="assets/SMART CONTRACTS/settle.png" width="400" style="margin: 10px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" alt="Settle Auction" />
+  <img src="assets/SMART CONTRACTS/circuit-keys.png" width="400" style="margin: 10px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" alt="Compiled ZK Circuit Keys" />
+</div>
 
 ---
 
@@ -146,7 +154,14 @@ VeilBid/
 The VeilBid smart contract is rigorously tested using Vitest inside the Midnight testing environment to guarantee zero-knowledge constraints hold true under edge cases.
 
 *   **Total Test Cases**: 15 exhaustive ZK logic tests.
-*   **Result**: `PASS` (See `assets/TEST/test screenshot.png`)
+*   **Result**: `PASS`
+
+Below are the test execution results verifying the circuit logic:
+
+<div align="center">
+  <img src="assets/TEST/test screenshot.png" width="800" style="margin-bottom: 10px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" alt="Test Execution Logs 1" />
+  <img src="assets/TEST/test.png" width="800" style="margin-bottom: 10px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" alt="Test Execution Logs 2" />
+</div>
 
 To run them yourself:
 ```bash
